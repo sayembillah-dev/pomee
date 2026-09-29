@@ -60,20 +60,37 @@ flutter test
 
 The same checks run on every push and pull request through GitHub Actions.
 
-## Building a release
+## Download
+
+Get the latest APK from the
+[Releases page](https://github.com/sayembillah-dev/pomee/releases/latest)
+and open it on your Android phone. You may need to allow installing apps
+from your browser or file manager. Newer releases install over older ones
+and keep your settings.
+
+## Releasing
+
+Push a version tag and GitHub Actions does the rest:
+
+```sh
+git tag v1.0.1
+git push origin v1.0.1
+```
+
+The [release workflow](.github/workflows/release.yml) runs the tests,
+builds an APK signed with the release key, and publishes it as a GitHub
+Release. The version comes from the tag, and the Android version code is
+derived from it (1.2.3 becomes 10203), so every release installs over the
+last.
+
+The signing key lives in the repository secrets `ANDROID_KEYSTORE_BASE64`,
+`ANDROID_KEYSTORE_PASSWORD` and `ANDROID_KEY_ALIAS`. Locally, release builds
+read `android/key.properties` (ignored by git) and fall back to the debug
+key when it is missing, so anyone can still build:
 
 ```sh
 flutter build apk --release
 ```
-
-The APK lands in `build/app/outputs/flutter-apk/app-release.apk` and can be
-installed with `adb install -r` or copied to the phone.
-
-Release builds are currently signed with the local debug key, which is fine
-for installing on your own devices. To publish on the Play Store, change the
-application ID (`com.example.pomee` in `android/app/build.gradle.kts`) and
-[set up a signing key](https://docs.flutter.dev/deployment/android#sign-the-app).
-Keystores and `key.properties` are ignored by git.
 
 ## Code map
 

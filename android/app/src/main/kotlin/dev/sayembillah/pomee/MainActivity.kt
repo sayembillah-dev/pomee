@@ -1,4 +1,4 @@
-package com.example.pomee
+package dev.sayembillah.pomee
 
 import io.flutter.embedding.android.FlutterActivity
 
