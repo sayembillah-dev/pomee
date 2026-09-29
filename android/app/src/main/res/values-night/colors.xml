@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Matches PomeeColors.dark.background. -->
+    <color name="splash_bg">#111110</color>
+</resources>
