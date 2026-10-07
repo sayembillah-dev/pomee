@@ -143,4 +143,24 @@ void main() {
     expect(tester.widget<AnimatedRotation>(icon.first).turns, 0);
     await tester.pumpWidget(const SizedBox());
   });
+
+  testWidgets('the About sheet links to the privacy policy', (tester) async {
+    tester.view.physicalSize = const Size(1080, 2340);
+    tester.view.devicePixelRatio = 2.75;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: buildTheme(Brightness.light),
+        home: const HomeScreen(),
+      ),
+    );
+    await tester.pump(const Duration(seconds: 1));
+
+    await tester.tap(find.bySemanticsLabel('About Pomee'));
+    await tester.pump(const Duration(seconds: 1));
+    expect(find.text('Privacy policy'), findsOneWidget);
+    expect(find.text('Contact support'), findsOneWidget);
+    expect(find.text('Made by Twodesk'), findsOneWidget);
+    await tester.pumpWidget(const SizedBox());
+  });
 }

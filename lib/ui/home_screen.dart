@@ -9,6 +9,7 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 import '../controllers/pomodoro_controller.dart';
 import '../services/pose_service.dart';
 import '../theme.dart';
+import 'about_sheet.dart';
 import 'chaos_overlay.dart';
 import 'debug_hud.dart';
 import 'hourglass_view.dart';
@@ -418,6 +419,11 @@ class _TopPanel extends StatelessWidget {
                 onTap: onHourglass,
               ),
               const _ThemeToggle(),
+              _CornerButton(
+                icon: Icons.info_outline_rounded,
+                label: 'About Pomee',
+                onTap: () => showAboutSheet(context),
+              ),
             ],
           ),
           const SizedBox(height: 28),

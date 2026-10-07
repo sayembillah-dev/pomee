@@ -29,6 +29,7 @@ tested on a device.
   always falls toward the ground, flipping the phone sends it back, and
   laying the phone flat pauses it.
 - **Light and dark themes** (top-right icon). The choice is remembered.
+- **About** (the "i" icon) links to the privacy policy and support.
 
 ## Getting started
 
