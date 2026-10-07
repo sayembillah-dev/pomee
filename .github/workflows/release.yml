@@ -1,7 +1,7 @@
 name: Release
 
-# Push a tag like v1.2.3 to build a signed APK and publish it as a GitHub
-# Release.
+# Push a tag like v1.2.3 to build a signed APK and Play Store bundle (AAB)
+# and publish both as a GitHub Release. Upload the AAB to Play Console.
 on:
   push:
     tags: ['v[0-9]+.[0-9]+.[0-9]+']
@@ -52,13 +52,18 @@ jobs:
           keyAlias=$KEY_ALIAS
           PROPS
 
-      - name: Build APK
+      - name: Build APK and AAB
         run: |
           flutter build apk --release \
             --build-name=${{ steps.version.outputs.name }} \
             --build-number=${{ steps.version.outputs.code }}
+          flutter build appbundle --release \
+            --build-name=${{ steps.version.outputs.name }} \
+            --build-number=${{ steps.version.outputs.code }}
           cp build/app/outputs/flutter-apk/app-release.apk \
             "pomee-${{ steps.version.outputs.name }}.apk"
+          cp build/app/outputs/bundle/release/app-release.aab \
+            "pomee-${{ steps.version.outputs.name }}.aab"
 
       - name: Publish release
         env:
@@ -66,5 +71,6 @@ jobs:
         run: |
           gh release create "$GITHUB_REF_NAME" \
             "pomee-${{ steps.version.outputs.name }}.apk" \
+            "pomee-${{ steps.version.outputs.name }}.aab" \
             --title "Pomee ${{ steps.version.outputs.name }}" \
             --generate-notes

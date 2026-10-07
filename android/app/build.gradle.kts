@@ -15,7 +15,7 @@ val keyProperties = Properties().apply {
 val hasReleaseKey = keyProperties.getProperty("storeFile") != null
 
 android {
-    namespace = "dev.sayembillah.pomee"
+    namespace = "com.twodesk.pomee"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -25,7 +25,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "dev.sayembillah.pomee"
+        applicationId = "com.twodesk.pomee"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
@@ -54,6 +54,11 @@ android {
             signingConfig = signingConfigs.getByName(
                 if (hasReleaseKey) "release" else "debug",
             )
+            // Bundles native symbols in the AAB so Play Console can symbolicate
+            // native crashes.
+            ndk {
+                debugSymbolLevel = "SYMBOL_TABLE"
+            }
         }
     }
 }

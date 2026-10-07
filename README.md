@@ -78,8 +78,9 @@ git push origin v1.0.1
 ```
 
 The [release workflow](.github/workflows/release.yml) runs the tests,
-builds an APK signed with the release key, and publishes it as a GitHub
-Release. The version comes from the tag, and the Android version code is
+builds an APK and a Play Store bundle (AAB) signed with the release key, and
+publishes both as a GitHub Release. See [store/](store/README.md) for the
+Google Play listing, graphics and upload checklist. The version comes from the tag, and the Android version code is
 derived from it (1.2.3 becomes 10203), so every release installs over the
 last.
 
@@ -90,6 +91,7 @@ key when it is missing, so anyone can still build:
 
 ```sh
 flutter build apk --release
+flutter build appbundle --release
 ```
 
 ## Code map
